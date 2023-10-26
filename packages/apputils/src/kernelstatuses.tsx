@@ -49,19 +49,6 @@ export function translateKernelStatuses(
 function KernelStatusComponent(
   props: KernelStatusComponent.IProps
 ): React.ReactElement<KernelStatusComponent.IProps> {
-  const keydownHandler = (event: React.KeyboardEvent<HTMLImageElement>) => {
-    if (
-      event.key === 'Enter' ||
-      event.key === 'Spacebar' ||
-      event.key === ' '
-    ) {
-      event.preventDefault();
-      event.stopPropagation();
-      props.handleClick();
-    } else {
-      return;
-    }
-  };
   const translator = props.translator || nullTranslator;
   const trans = translator.load('jupyterlab');
   let statusText = '';
@@ -71,7 +58,6 @@ function KernelStatusComponent(
   return (
     <TextItem
       onClick={props.handleClick}
-      onKeyDown={keydownHandler}
       source={`${props.kernelName}${statusText}`}
       title={trans.__('Change kernel for %1', props.activityName)}
       tabIndex={0}
